@@ -5,14 +5,14 @@ const RegisterPage = () => {
     const [name, setName] = useState('');
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
-    function RegisterUser(ev) {
+   async  function RegisterUser(ev) {
         ev.preventDefault()
         try {
-            axios.post('http://localhost:4000/register', {
+           await  axios.post('http://localhost:4000/register', {
                 name,
                 mail,
                 password
-            })
+            });
         }
         catch (e) {
             alert("reg failed")

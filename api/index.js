@@ -46,8 +46,7 @@ app.post('/login', async (req, res) => {
                 jwt.sign({ mail: userDoc.mail, id: userDoc._id }, jwtkey, {}, (err, token) => {
                     if (err) throw err;
                     res.cookie('token', token).json(userDoc);
-                })
-                
+                });
             }
             else{res.json('enter correct password')}
         }
