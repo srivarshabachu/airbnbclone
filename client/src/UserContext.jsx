@@ -8,14 +8,15 @@ export function UserContextProvider({ children }) {
     const [ready, setReady] = useState(false);
     useEffect(() => {
         if (!user) {
-            axios.get('/profile').then(({ data }) => {
+            axios.get('http://localhost:4000/profile').then(({ data }) => {
                 setUser(data);
-                setReady(true);
+                setReady(true)
             });
         }
-    }); 
+    }, []); // Add user as a dependency
+
     return (
-        <UserContext.Provider value ={{ user ,setUser , ready}} >
+        <UserContext.Provider value ={{ user ,setUser ,ready}} >
             {children}
        </UserContext.Provider>
     )

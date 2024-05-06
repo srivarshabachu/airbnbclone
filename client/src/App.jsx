@@ -6,7 +6,7 @@ import Layout from './layout'
 import IndexPage from './pages/IndexPage'
 import RegisterPage from './pages/RegisterPage'
 import { UserContextProvider } from './UserContext'
-import AccountPage from './pages/AccoundPage'
+import AccountPage from './pages/AccountPage'
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/account/:subpage" element={<AccountPage />} />
+        <Route path="/account/:subpage/:action" element={<AccountPage />} />
         
       </Route>
       </Routes>

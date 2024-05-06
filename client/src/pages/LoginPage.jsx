@@ -15,8 +15,8 @@ const LoginPage = () => {
           password
        });
         setUser(data)
-        setRedirect(true)
         alert("Login successfull")
+        setRedirect(true)
       }
       catch (e) {
         alert("login failed")
