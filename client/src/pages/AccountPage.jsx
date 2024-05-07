@@ -53,15 +53,16 @@ export default function AccountPage() {
                     </svg>
                     My Places</Link>  
             </nav>
+            {subpage === 'places' && (
+                <PlacesPage />
+            )}
             {subpage != 'bookings' && subpage!='places' && (
                 <div className="text-center">
                     Logged in as {user.name}<br/>
                     <button onClick={Logout} className="bg-pink text-white rounded-full mx-w-sm mt-2 py-2 px-4">Log Out</button>
                 </div>
             )}
-            {subpage === 'places' && (
-                <PlacesPage/>
-            )}
+            
         </div>
     );
 }

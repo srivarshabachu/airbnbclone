@@ -3,17 +3,23 @@ const app = express();
 const bcrypt = require('bcryptjs')
 const mongoose = require("mongoose")
 const User = require('./models/User')
+const Place = require('./models/Place')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
+const imageDownloader = require('image-downloader')
+const multer = require('multer');
+const fs=require('fs')
 const jwtkey ='vhghikfjnkdbiklakopsggkhb'
 const key = bcrypt.genSaltSync(10);
 require('dotenv').config()
 const cors = require('cors');
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads' , express.static(__dirname+'/uploads'))
 app.use(cors({
+    origin: 'http://localhost:5173',
     credentials: 'true',
-    origin:'http://localhost:5173'
+    
 }))
 
 mongoose.connect(process.env.MONGO_URL)
@@ -82,6 +88,35 @@ app.post('/login', async (req, res) => {
         res.status(422).json(e);
     }
 });
+
+app.post('/upload-by-link', async (req, res) => {
+    const { link } = req.body;
+    const imgname = Date.now() + '.jpg';
+     await imageDownloader.image({
+        url: link,
+        dest:'/Users/srivarshabachu/Desktop/3-2 sem/airbnbclone/api/uploads/'+imgname,
+     })
+    res.json(imgname)
+})
+
+const photosMW = multer({ dest: '/Users/srivarshabachu/Desktop/3-2 sem/airbnbclone/api/uploads/' });
+app.post('/upload', photosMW.array('photos', 100), (req, res) => {
+    const uploadedFiles=[]
+    for (let i = 0; i < req.files.length; i++){
+        const { path, originalname } = req.files[i];
+        const parts = originalname.split('.')
+        const ext = parts[parts.length - 1];
+        const newPath = path + '.' + ext;
+        fs.renameSync(path, newPath);
+        uploadedFiles.push(newPath.replace('/Users/srivarshabachu/Desktop/3-2 sem/airbnbclone/api/uploads/',''));
+    }
+    res.json(uploadedFiles)
+})
+app.post('/places', async (req, res) => {
+    const {x} = req.cookies
+    res.json({x})
+});
+
 
 app.listen(4000, () => {
     console.log('Server is running on port 4000');
