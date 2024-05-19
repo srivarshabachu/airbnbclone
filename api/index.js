@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use('/uploads' , express.static(__dirname+'/uploads'))
 app.use(cors({
     origin: 'http://localhost:5173',
-    credentials: 'true',
+    credentials: true,
     
 }))
 
@@ -45,7 +45,7 @@ app.get('/profile', (req, res) => {
 
 
 app.post('/logout', async (req, res) => {
-    res.cookie('token', '').json(true);
+    res.cookie(token, '').json(true);
 })
 
 
@@ -113,8 +113,25 @@ app.post('/upload', photosMW.array('photos', 100), (req, res) => {
     res.json(uploadedFiles)
 })
 app.post('/places', async (req, res) => {
-    const {x} = req.cookies
-    res.json({x})
+    const {
+        title, address, addedPhotos, description, price,
+        perks, extraInfo, checkIn, checkOut, maxGuests,
+    } = req.body;
+
+    try {
+        // Create the place without authentication
+        const place = await Place.create({
+            title, address, photos: addedPhotos, description,
+            perks, extraInfo, checkIn, checkOut, maxGuests,
+        });
+
+        // Respond with the created place
+        res.json(place);
+    } catch (error) {
+        // Handle errors
+        console.error('Error creating place:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 

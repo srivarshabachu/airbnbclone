@@ -14,7 +14,7 @@ export default function PlacesPage() {
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
     const [maxguests, setMaxguests] = useState(1)
-    const [redirect , setRedirect] = useState()
+    const [redirect, setRedirect] = useState()
     async function addNewPlace(ev) {
         ev.preventDefault();
         await axios.post('http://localhost:4000/places', {
@@ -45,39 +45,39 @@ export default function PlacesPage() {
                 <div>
                     <form onSubmit={addNewPlace}>
                         <h2 className="text-2xl">Title</h2>
-                        <input type="text" value={title} onChange={ev=>setTitle(ev.target.value)} placeholder="title" />
+                        <input type="text" value={title} onChange={ev => setTitle(ev.target.value)} placeholder="title" />
                         <h2 className="text-2xl">Address</h2>
-                        <input type="text" value={address} onChange={ev => setAddress(ev.target.value)}  placeholder="address" />
+                        <input type="text" value={address} onChange={ev => setAddress(ev.target.value)} placeholder="address" />
                         <h2 className="text-2xl">Photos</h2>
-                        
+
                         <h2 className="text-2xl">Description</h2>
                         <textarea placeholder="description" value={description} onChange={ev => setDescription(ev.target.value)}></textarea>
                         <h2 className="text-2xl">Perks</h2>
                         <PhotosUploader photos={photos} onChange={setPhotos} />
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-                            
-                          <Perks selected={perks} onChange={setPerks}/>
+
+                            <Perks selected={perks} onChange={setPerks} />
                         </div>
-                    
-                    <h2 className="text-2xl">Extra Info</h2>
-                    <textarea placeholder="" value={extrainfo} onChange={ev => setExtrainfo(ev.target.value)}></textarea>
-                    <h2 className="text-2xl">Check in & Check out times</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-2">
-                        <div>
-                            <h3>Check in time</h3>
-                            <input type="text" placeholder="14:00" value={checkIn} onChange={ev => setCheckIn(ev.target.value)} /></div>
-                        <div>
-                            <h3>Check out time</h3>
-                            <input type="text" placeholder="14:00" value={checkOut} onChange={ev => setCheckOut(ev.target.value)} /></div>
-                        <div>
-                            <h3>Check max number of guests</h3>
-                            <input type="number" placeholder="2" value={maxguests} onChange={ev => setMaxguests(ev.target.value)} />
+
+                        <h2 className="text-2xl">Extra Info</h2>
+                        <textarea placeholder="" value={extrainfo} onChange={ev => setExtrainfo(ev.target.value)}></textarea>
+                        <h2 className="text-2xl">Check in & Check out times</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-2">
+                            <div>
+                                <h3>Check in time</h3>
+                                <input type="text" placeholder="14:00" value={checkIn} onChange={ev => setCheckIn(ev.target.value)} /></div>
+                            <div>
+                                <h3>Check out time</h3>
+                                <input type="text" placeholder="14:00" value={checkOut} onChange={ev => setCheckOut(ev.target.value)} /></div>
+                            <div>
+                                <h3>Check max number of guests</h3>
+                                <input type="number" placeholder="2" value={maxguests} onChange={ev => setMaxguests(ev.target.value)} />
+                            </div>
                         </div>
-                    </div>
-                    <button type="submit" className="w-full gap-1 bg-pink text-white py-2 px-6 rounded-full">Save</button>
+                        <button type="submit" className="w-full gap-1 bg-pink text-white py-2 px-6 rounded-full">Save</button>
                     </form>
                 </div>
-           )}
+            )}
         </div>
     )
 }
